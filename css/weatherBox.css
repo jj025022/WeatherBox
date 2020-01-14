@@ -1,0 +1,240 @@
+@charset "UTF-8";
+* {
+  position: relative;
+  font-family: "Hind Vadodara", sans-serif, "微軟正黑體";
+}
+
+html, body {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #333;
+}
+
+.daybox {
+  width: 50%;
+  max-width: 400px;
+  background-color: #f3f3f3;
+  border-radius: 12px;
+  cursor: pointer;
+}
+.daybox:hover .bottom {
+  height: 100px;
+}
+.daybox:hover .dayweather {
+  opacity: 1;
+}
+
+.top {
+  height: 400px;
+  background: linear-gradient(45deg, #0B346E 60%, rgba(11, 52, 110, 0.9));
+  border-radius: 10px 10px 0px 0px;
+}
+.top .temsvg {
+  width: 100%;
+}
+.top .temsvg polyline {
+  stroke: rgba(243, 243, 243, 0.8);
+  stroke-width: 1px;
+  fill: none;
+  transition: 1s;
+}
+.top .temsvg circle {
+  fill: #f3f3f3;
+  transition: 1s;
+}
+.top .temsvg text {
+  font-size: 10px;
+  transform: translateX(-5px) translateY(-20px);
+  fill: rgba(243, 243, 243, 0.8);
+  transition: 1s;
+}
+.top .moon {
+  width: 80px;
+  height: 80px;
+  border-radius: 100%;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 180px;
+  background: linear-gradient(45deg, orange, yellow);
+  animation: moonmove 20s infinite;
+}
+.top .mooncover {
+  width: 80px;
+  height: 80px;
+  border-radius: 100%;
+  position: absolute;
+  left: 15%;
+  bottom: 180px;
+  background-color: #0B346E;
+  animation: covermove 10s infinite;
+}
+@keyframes covermove {
+  0% {
+    transform: translateX(0) translateY(0);
+  }
+  50% {
+    transform: translateX(60px) translateY(0);
+  }
+  100% {
+    transform: translateX(0) translateY(0);
+  }
+}
+.rain {
+  width: 2px;
+  height: 10px;
+  position: absolute;
+  bottom: 10px;
+  left: 50px;
+  animation: raindrift 1.5s infinite linear;
+  background-color: #FEDFE1;
+}
+
+.rain1 {
+  left: 30px;
+  animation-delay: 0.4s;
+}
+
+.rain2 {
+  left: 70px;
+  animation-delay: 0.2s;
+}
+
+@keyframes raindrift {
+  0% {
+    transform: translateY(0px);
+  }
+  100% {
+    transform: translateY(40px);
+    opacity: 0;
+  }
+}
+.sunny {
+  width: 80px;
+  height: 80px;
+  border-radius: 100%;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 180px;
+  background: linear-gradient(45deg, orange, yellow);
+  animation: sunmove 5s infinite;
+  opacity: 0;
+}
+@keyframes sunmove {
+  0% {
+    transform: translateX(-50%) translateY(0px);
+  }
+  30% {
+    transform: translateX(-40%) translateY(0px);
+  }
+  60% {
+    transform: translateX(-60%) translateY(0px);
+  }
+  100% {
+    transform: translateX(-50%) translateY(0px);
+  }
+}
+.bottom {
+  height: 10px;
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
+  transition: 0.8s;
+}
+.bottom .dayweather {
+  top: 10px;
+  width: calc(100%/7 - 5px);
+  display: inline-block;
+  text-align: center;
+  transition-duration: 1s;
+  opacity: 0;
+}
+.bottom .dayweather svg {
+  width: 100%;
+  max-width: 40px;
+  height: 40px;
+}
+.bottom .dayweather svg .sun {
+  stroke: rgba(255, 214, 51, 0.5);
+  stroke-width: 15px;
+  stroke-dasharray: 5px;
+  fill: #FFD633;
+}
+.bottom .dayweather svg .rain {
+  stroke: black;
+}
+.bottom .dayweather svg .cloud2 {
+  fill: #ccc;
+  animation: cloudmove2 4s infinite;
+}
+@keyframes cloudmove2 {
+  0% {
+    transform: translateX(0%) translateY(0px);
+  }
+  50% {
+    transform: translateX(5%) translateY(0px);
+  }
+  100% {
+    transform: translateX(0%) translateY(0px);
+  }
+}
+.bottom .dayweather h3 {
+  font-size: 8px;
+  font-weight: 500;
+  color: rgba(51, 51, 51, 0.7);
+}
+
+.text_area {
+  display: inline-block;
+  position: absolute;
+  bottom: 35px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: #f3f3f3;
+  text-align: center;
+}
+.text_area .weather {
+  font-size: 75px;
+  line-height: 80px;
+}
+.text_area .infos {
+  font-size: 13px;
+}
+.text_area .infos .address, .text_area .infos .time {
+  font-weight: 500;
+  color: rgba(243, 243, 243, 0.7);
+}
+
+.weather, .address, .time {
+  transition: 1s;
+}
+
+#switch_morning {
+  display: none;
+}
+
+#switch_morning:checked + .top {
+  background: linear-gradient(#fad689, rgba(250, 214, 137, 0.2));
+}
+#switch_morning:checked + .top .sunny {
+  opacity: 1;
+}
+#switch_morning:checked + .top .moon, #switch_morning:checked + .top .mooncover {
+  opacity: 0;
+}
+#switch_morning:checked + .top .text_area .weather {
+  color: #333;
+}
+#switch_morning:checked + .top .address, #switch_morning:checked + .top .time {
+  color: rgba(51, 51, 51, 0.7);
+}
+#switch_morning:checked + .top .temsvg text, #switch_morning:checked + .top .temsvg circle {
+  fill: rgba(51, 51, 51, 0.7);
+}
+#switch_morning:checked + .top .temsvg polyline {
+  stroke: rgba(51, 51, 51, 0.7);
+}
